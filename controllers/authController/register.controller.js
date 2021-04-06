@@ -39,9 +39,6 @@ module.exports = async (req, res) => {
                 return res.status(400).send("Oops something went wrong! :(");
             })
 
-
-        await mailer("Registration completed", "THANK YOU FOR REGISTRATION", mail)
-
     } catch (e) {
         console.log(e)
         res.status(400).send("Oops something went wrong!")
