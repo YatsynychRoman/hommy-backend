@@ -9,13 +9,13 @@ module.exports = (() => {
         const client = new Sequelize('postgres', 'postgres', 'qasdr432', {host: 'localhost', dialect: 'postgres'})
         const models = {}
         function getModels() {
-            fs.readdir('./database/models', (err, file) => {
+            fs.readdir('./database/models', async (err, file) => {
                 file.forEach(file => {
                     const [modelName] = file.split('.')
                     models[modelName] = client.import(path.resolve(`./database/models/${modelName}.model`));
                 })
+                await client.sync({ force: true });
             })
-
         }
 
         return {

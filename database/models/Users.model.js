@@ -15,11 +15,6 @@ module.exports = (sequelize, DataTypes) => {
             unique: false,
             allowNull: false
         },
-        login: {
-            type: DataTypes.STRING,
-            unique: true,
-            allowNull: false
-        },
         pass: {
             type: DataTypes.STRING,
             unique: false,
@@ -38,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         photoUrl: {
             type: DataTypes.STRING,
             unique: false,
-            allowNull: true
+            allowNull: true,
         },
         role: {
             type: DataTypes.STRING,
@@ -49,8 +44,32 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.ARRAY(DataTypes.INTEGER),
             unique: false,
             allowNull: true
+        },
+        country: {
+            type: DataTypes.STRING,
+            unique: false,
+            allowNull: true
+        },
+        city: {
+            type: DataTypes.STRING,
+            unique: false,
+            allowNull: true
+        },
+        region: {
+            type: DataTypes.STRING,
+            unique: false,
+            allowNull: true
+        },
+        instProfile: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: true
+        },
+        bio: {
+            type: DataTypes.STRING,
+            unique: false,
+            allowNull: true
         }
-
     }, {
         tableName: 'Users',
         timestamps: false

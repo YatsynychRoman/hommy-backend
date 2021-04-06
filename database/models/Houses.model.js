@@ -7,12 +7,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        district: {
+        longitude: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false
         },
-        street: {
+        latitude: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false

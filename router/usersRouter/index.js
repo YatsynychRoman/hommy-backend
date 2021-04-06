@@ -5,7 +5,7 @@ const {showAll, showByID, change, remove, showHouses, addFavourite, changeProfil
 
 router.get('/', showAll);
 router.get('/userHouses', showHouses);
-router.get('/:id', showByID);
+router.get('/my-profile', middleware.checkAccess, showByID);
 router.patch('/:id', change);
 router.delete('/:id', remove);
 router.post('/addFavourite', addFavourite);

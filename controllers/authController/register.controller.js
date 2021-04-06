@@ -7,17 +7,17 @@ const mailer = require('../../utils/mailers/mailer.util');
 module.exports = async (req, res) => {
     try {
         const UserModel = db.getModel('Users');
-        const {name, surname, login, pass, mail} = req.body;
+        const {name, surname, pass, mail} = req.body;
 
         const userPhoto = req.files ? req.files.userPhoto : null
 
-        if (!name || !surname || !login || !pass || !mail) {
+        if (!name || !surname || !pass || !mail) {
             return res.status(400).send("Something is missing");
         }
 
         const data = await UserModel.findOne({
             where: {
-                $or: [{mail}, {login}]
+               mail
             }
         })
         if (data) return res.status(500).send("User Already exists")
@@ -27,7 +27,6 @@ module.exports = async (req, res) => {
         UserModel.create({
             name,
             surname,
-            login,
             pass: hash,
             mail,
         }, {returning: true})

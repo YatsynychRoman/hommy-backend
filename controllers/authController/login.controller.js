@@ -5,10 +5,10 @@ const createTokens = require('../../utils/tokens/generateTokens.util')
 
 module.exports = async (req, res) => {
     const UserModel = db.getModel('Users')
-    const {login, pass} = req.body;
+    const {mail, pass} = req.body;
     UserModel.findOne({
         where: {
-            login
+            mail
         }
     })
         .then(({dataValues: data}) => {
