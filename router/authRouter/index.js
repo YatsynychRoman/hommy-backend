@@ -7,5 +7,6 @@ router.post('/login', login);
 router.post('/register', middleware.checkFiles, register);
 router.post('/rtoken', refreshToken);
 router.post('/getByToken', getByToken);
+router.get('/checkToken', middleware.checkAccess);
 
 module.exports = router;
