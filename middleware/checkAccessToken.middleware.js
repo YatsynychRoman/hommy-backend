@@ -7,6 +7,6 @@ module.exports = (req, res, next) => {
         });
         next();
     } catch (e) {
-        return res.status(200).send("token is timed out");
+        return res.status(400).send({isExpired: true});
     }
 }
