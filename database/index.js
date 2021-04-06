@@ -6,7 +6,7 @@ module.exports = (() => {
     let instance;
 
     function initConnection() {
-        const client = new Sequelize('lun-db', 'postgres', 'postgres', {host: 'localhost', dialect: 'postgres'})
+        const client = new Sequelize('lun-db', 'postgres', 'postgres', { host: 'localhost', dialect: 'postgres' })
         const models = {}
         function getModels() {
             fs.readdir('./database/models', async (err, file) => {
@@ -14,7 +14,7 @@ module.exports = (() => {
                     const [modelName] = file.split('.')
                     models[modelName] = client.import(path.resolve(`./database/models/${modelName}.model`));
                 })
-                await client.sync({ force: true });
+                await client.sync({ force: false });
             })
         }
 
