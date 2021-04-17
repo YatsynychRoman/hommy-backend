@@ -2,16 +2,22 @@ const s3 = require('../../aws');
 
 module.exports = async (type, id, model, photoUrl) => {
     try {
-        const foundOne = await model.findOne({where: {id}});
+        const foundOne = await model.findOne({ where: { id } });
         let newPhotos;
-        if(type === 'houses') newPhotos = foundOne.photoUrl.filter(item => item !== photoUrl);
+        if (type === 'houses') newPhotos = foundOne.photoUrl.filter(item => item !== photoUrl);
         else newPhotos = null;
-        const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: `${type}/${photoUrl.split('/')[4]}`,
+        if (type === 'users') photoUrl = foundOne.photoUrl;
+
+        if (!photoUrl) {
+            return;
         }
-        s3.deleteObject(params, err => err && console.log('err',err));
-        await foundOne.update({'photoUrl': newPhotos});
+
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `${type}/${photoUrl.split('/')[4]}`,
+        }
+        s3.deleteObject(params, err => err && console.log('err', err));
+        await foundOne.update({ photoUrl: newPhotos });
         return newPhotos;
     } catch (e) {
         console.log(e)

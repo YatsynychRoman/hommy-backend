@@ -15,11 +15,12 @@ server.use(cors());
 server.use(fileUpload({}));
 
 server.use('/', routes.authRouter);
-server.use('/users', middleware.checkAccess,routes.usersRouter);
+server.use('/users', middleware.checkAccess, routes.usersRouter);
 server.use('/houses', routes.housesRouter);
 
 server.all('*', (req, res) => {
-    return res.status(500).end("Bad request");
+    console.log("Error")
+    return res.status(404).end("Invalid path");
 });
 
 io();

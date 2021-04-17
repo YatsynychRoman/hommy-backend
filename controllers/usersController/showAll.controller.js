@@ -1,6 +1,7 @@
 const db = require("../../database").getInstance()
 
 module.exports = (req, res) => {
+    console.log(1)
     try {
         const UserModel = db.getModel('Users')
 

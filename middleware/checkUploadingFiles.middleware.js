@@ -1,6 +1,7 @@
 module.exports = (req, res, next) => {
     try {
-        if(req.files){
+        console.log("Upload Photo");
+        if (req.files) {
             const files = req.files[Object.keys(req.files)[0]];
 
             if (Array.isArray(files)) {
@@ -13,6 +14,7 @@ module.exports = (req, res, next) => {
             if (files.length > 10) return res.status(400).send('Too much files');
         }
         next()
+
     } catch (e) {
         return res.status(400).send(e.message);
     }
