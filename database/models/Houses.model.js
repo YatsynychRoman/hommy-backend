@@ -11,26 +11,37 @@ module.exports = (sequelize, DataTypes) => {
       },
       longitude: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: false,
       },
       latitude: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: false,
-      },
-      houseNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: false,
-      },
-      apartNumber: {
-        type: DataTypes.INTEGER,
         allowNull: true,
         unique: false,
       },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
       price: {
         type: DataTypes.NUMERIC,
+        allowNull: false,
+        unique: false,
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: false,
+      },
+      houseType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false,
+        enum: ['plot', 'townhouse', 'cottage', 'quadrex', 'duplex'],
+      },
+      description: {
+        type: DataTypes.STRING,
         allowNull: false,
         unique: false,
       },
@@ -49,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
         unique: false,
+        defaultValue: [],
       },
     },
     {

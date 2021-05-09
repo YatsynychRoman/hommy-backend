@@ -15,6 +15,7 @@ module.exports = async (type, [files], id, model) => {
       await s3.upload(uploadParams, async (err, data) => {
         if (err) return console.log(err)
         const foundOne = await model.findOne({ where: { id } })
+        foundOne.photoUrl.pop()
         foundOne.photoUrl.push(data.Location)
         await foundOne.update({ photoUrl: foundOne.photoUrl })
       })

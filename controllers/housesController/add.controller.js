@@ -3,28 +3,24 @@ const bucketUpload = require('../../utils/aws/s3BucketUploadHouses.util')
 
 module.exports = (req, res) => {
   const HouseModel = db.getModel('Houses')
-  const { district, squares, street, houseNumber, apartNumber, price, userId } = req.body
-  const housePhotos = req.files.housePhoto
-
-  if (!district || !squares || !price) {
-    return res.status(400).send('Something is missing')
-  }
+  const { squares, price, userId, location, description, houseType, phoneNumber } = req.body
+  const housePhotos = req.files && req.files.housePhoto
 
   HouseModel.create({
-    district,
-    street,
-    houseNumber,
-    apartNumber,
     squares,
     price,
     userId,
+    location,
+    description,
+    houseType,
+    phoneNumber,
   })
     .then((dataValues) => {
-      bucketUpload('houses', [housePhotos], dataValues.id, HouseModel)
+      if (housePhotos) bucketUpload('houses', [[housePhotos]], dataValues.id, HouseModel)
       return res.send()
     })
     .catch((error) => {
       console.log(error)
-      return res.send('Oops something went wrong! :(')
+      return res.status(500).send('Oops something went wrong! :(')
     })
 }
