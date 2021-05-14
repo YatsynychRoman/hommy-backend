@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken')
-const db = require('../../database').getInstance()
+const { User } = require('../../database')
 
 const createTokens = require('../../utils/tokens/generateTokens.util')
 
 module.exports = async (req, res) => {
   try {
-    const UserModel = db.getModel('Users')
     const decoded = await jwt.verify(req.headers.authorization, process.env.REFRESH_TOKEN_KEY)
     req.body.id = decoded.id
-    const data = await UserModel.findOne({
+    const data = await User.findOne({
       where: {
         id: decoded.id,
         refreshToken: req.headers.authorization,

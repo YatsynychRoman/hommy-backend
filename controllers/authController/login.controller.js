@@ -1,12 +1,11 @@
-const db = require('../../database').getInstance()
 const bcrypt = require('bcrypt')
+const { User } = require('../../database')
 
 const createTokens = require('../../utils/tokens/generateTokens.util')
 
 module.exports = async (req, res) => {
-  const UserModel = db.getModel('Users')
   const { mail, pass } = req.body
-  UserModel.findOne({
+  User.findOne({
     where: {
       mail,
     },

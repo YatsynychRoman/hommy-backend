@@ -7,4 +7,5 @@ module.exports = {
   addPhoto: require('./addPhoto.controller'),
   deletePhoto: require('./deletePhoto.controller'),
   owned: require('./owned.controller'),
+  likeHouse: require('./likeHouse.controller'),
 }

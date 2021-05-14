@@ -1,12 +1,11 @@
-const db = require('../../database').getInstance()
+const { House } = require('../../database')
 const bucketUpload = require('../../utils/aws/s3BucketUploadHouses.util')
 
 module.exports = (req, res) => {
-  const HouseModel = db.getModel('Houses')
   const { squares, price, userId, location, description, houseType, phoneNumber } = req.body
   const housePhotos = req.files && req.files.housePhoto
 
-  HouseModel.create({
+  House.create({
     squares,
     price,
     userId,
@@ -16,7 +15,7 @@ module.exports = (req, res) => {
     phoneNumber,
   })
     .then((dataValues) => {
-      if (housePhotos) bucketUpload('houses', [[housePhotos]], dataValues.id, HouseModel)
+      if (housePhotos) bucketUpload('houses', [[housePhotos]], dataValues.id, House)
       return res.send()
     })
     .catch((error) => {

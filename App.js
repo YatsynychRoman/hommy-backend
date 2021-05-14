@@ -3,13 +3,11 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const middleware = require('./middleware')
 const routes = require('./router')
-const db = require('./database').getInstance()
 const io = require('./supportChat')
 require('dotenv').config()
 
 const server = express()
 
-db.setModels()
 server.use(express.json())
 server.use(cors())
 server.use(fileUpload({}))

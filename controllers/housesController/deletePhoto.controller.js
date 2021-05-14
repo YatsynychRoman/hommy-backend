@@ -1,11 +1,9 @@
-const db = require('../../database').getInstance()
-
 const bucketDelete = require('../../utils/aws/s3BucketDelete.util')
+const { House } = require('../../database')
 
 module.exports = async (req, res) => {
   try {
-    const HouseModel = db.getModel('Houses')
-    const newPhotos = await bucketDelete('houses', req.body.houseId, HouseModel, req.body.photoUrl)
+    const newPhotos = await bucketDelete('houses', req.body.houseId, House, req.body.photoUrl)
 
     res.status(200).send(newPhotos)
   } catch (e) {

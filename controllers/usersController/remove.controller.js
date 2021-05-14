@@ -1,11 +1,10 @@
-const db = require('../../database').getInstance()
+const { User } = require('../../database')
 
 module.exports = async (req, res) => {
   try {
-    const UserModel = db.getModel('Users')
     const { id } = req.params
 
-    UserModel.destroy({ where: { id } })
+    User.destroy({ where: { id } })
       .then(() => res.status(200))
       .catch((error) => res.status(400).send(error))
   } catch (e) {

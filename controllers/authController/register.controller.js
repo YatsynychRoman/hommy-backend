@@ -1,12 +1,10 @@
-const db = require('../../database').getInstance()
 const bcrypt = require('bcrypt')
+const { User } = require('../../database')
 
 const bucketUpload = require('../../utils/aws/s3BucketUploadUsers.util')
-const mailer = require('../../utils/mailers/mailer.util')
 
 module.exports = async (req, res) => {
   try {
-    const UserModel = db.getModel('Users')
     const { name, surname, pass, mail } = req.body
 
     const userPhoto = req.files ? req.files.userPhoto : null
@@ -15,7 +13,7 @@ module.exports = async (req, res) => {
       return res.status(400).send('Something is missing')
     }
 
-    const data = await UserModel.findOne({
+    const data = await User.findOne({
       where: {
         mail,
       },
@@ -24,7 +22,7 @@ module.exports = async (req, res) => {
 
     const hash = await bcrypt.hash(pass, 10)
 
-    UserModel.create(
+    User.create(
       {
         name,
         surname,
@@ -34,7 +32,7 @@ module.exports = async (req, res) => {
       { returning: true }
     )
       .then((dataValues) => {
-        bucketUpload('users', [[userPhoto]], dataValues.id, UserModel)
+        bucketUpload('users', [[userPhoto]], dataValues.id, User)
         return res.status(200).send('Registration successful')
       })
       .catch((error) => {

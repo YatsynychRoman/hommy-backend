@@ -1,11 +1,10 @@
-const db = require('../../database').getInstance()
+const { House } = require('../../database')
 
 module.exports = async (req, res) => {
   try {
-    const HouseModel = db.getModel('Houses')
     const { id } = req.params
 
-    await HouseModel.destroy({ where: { id } })
+    await House.destroy({ where: { id } })
     res.status(200).send('Deleted')
   } catch (e) {
     console.log(e)
