@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       location: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
       },
       price: {
         type: DataTypes.NUMERIC,
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: false,
-        enum: ['plot', 'townhouse', 'cottage', 'quadrex', 'duplex'],
+        enum: ['Plot', 'Townhouse', 'Cottage', 'Quadrex', 'Duplex'],
       },
       description: {
         type: DataTypes.STRING,
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,  // change to false
         unique: false,
         foreignKey: true,
       },
