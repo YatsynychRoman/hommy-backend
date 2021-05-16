@@ -17,7 +17,7 @@ const {
 router.get('/', showAll)
 router.get('/my-houses', middleware.checkAccess, owned)
 router.get('/favourites', middleware.checkAccess, favourites)
-router.get('/:id', middleware.checkAccess, showByID)
+router.get('/:id', showByID)
 router.post('/like', middleware.checkAccess, likeHouse)
 router.post('/', middleware.checkAccess, add)
 router.post('/deletePhoto', middleware.checkAccess, deletePhoto)

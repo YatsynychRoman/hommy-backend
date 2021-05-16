@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     const { id } = req.params
     const { userId } = req.body
 
-    res.send(await House.findOne({ where: { id, userId } }))
+    res.send(await House.findOne({ where: { id } }))
   } catch (e) {
     console.log(e)
     res.status(500).send('Oops something went wrong!')
