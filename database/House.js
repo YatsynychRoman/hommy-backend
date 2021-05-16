@@ -40,6 +40,24 @@ class House extends Sequelize.Model {
           unique: false,
           enum: ['Plot', 'Townhouse', 'Cottage', 'Quadrex', 'Duplex'],
         },
+        waterSupply: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          unique: false,
+          enum: ['Centralized', 'Individual'],
+        },
+        heating: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          unique: false,
+          enum: ['A Gas Boiler', 'Solid fuel Boiler'],
+        },
+        warming: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          unique: false,
+          enum: ['Thermoblock', 'Basalt Wool', 'Styrofoam'],
+        },
         description: {
           type: Sequelize.STRING,
           allowNull: true,
