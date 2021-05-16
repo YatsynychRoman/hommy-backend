@@ -1,21 +1,33 @@
+const { Op } = require('sequelize')
 const jwt = require('jsonwebtoken')
 const { House, Like } = require('../../database')
 
 module.exports = async (req, res) => {
-  const { offset, limit } = req.query
   try {
+    const { offset, limit, city, houseType } = req.query
+
+    const where = {}
+
+    if (city) where.location = { [Op.like]: `%${city}%` }
+    if (houseType) where.houseType = { [Op.in]: houseType.split(',') }
+
+    const query = {
+      where,
+      offset,
+      limit,
+      order: [['id', 'asc']],
+    }
+
     if (!req.headers.authorization || req.headers.authorization !== 'undefined') {
       jwt.verify(req.headers.authorization, process.env.ACCESS_TOKEN_KEY, function (err, decoded) {
         const userId = decoded.id
-        House.findAll({
-          offset,
-          limit,
-          include: { model: Like, where: { userId }, required: false },
-          order: [['id', 'asc']],
-        }).then((data) => res.send(data))
+
+        query.include = { model: Like, where: { userId }, required: false }
+
+        House.findAll(query).then((data) => res.send(data))
       })
     } else {
-      House.findAll({ offset, limit }).then((data) => res.send(data))
+      House.findAll(query).then((data) => res.send(data))
     }
   } catch (e) {
     console.log(e)

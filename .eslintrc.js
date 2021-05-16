@@ -28,5 +28,6 @@ module.exports = {
     semi: ['error', 'never'],
     'no-plusplus': 'off',
     'no-bitwise': 'off',
+    'global-require': 'off'
   },
 }

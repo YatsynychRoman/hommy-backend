@@ -7,6 +7,7 @@ const data = [
     photoUrl: [],
     houseType: 'Duplex',
     description: 'Hui',
+    userId: 1,
   },
   {
     location: 'Ukraine, Lviv obl, Zhovkva, Peremogi St, 35B',
@@ -14,6 +15,7 @@ const data = [
     photoUrl: [],
     houseType: 'Cottage',
     description: 'Hui',
+    userId: 1,
   },
   {
     location: 'Ukraine, Lviv obl, Zubra, Zelena St, 35B',
@@ -21,6 +23,7 @@ const data = [
     photoUrl: [],
     houseType: 'Plot',
     description: 'Hui',
+    userId: 1,
   },
   {
     location: 'Ukraine, Lviv obl, Sykhiv, Red St, 35B',
@@ -115,16 +118,7 @@ const data = [
   },
 ]
 function dummydata() {
-  data.map(({ location, price, photoUrl, houseType, description }) => {
-    House.create({
-      location,
-      price,
-      photoUrl,
-      houseType,
-      description,
-      squares: 17.81,
-    })
-  })
+  data.map((house) => House.create(house))
 }
 
 module.exports = {
