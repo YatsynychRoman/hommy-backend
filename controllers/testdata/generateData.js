@@ -6,7 +6,10 @@ const data = [
     price: 12321,
     photoUrl: [],
     houseType: 'Duplex',
-    description: 'Hui',
+    description: 'Simple description',
+    waterSupply: 'Centralized',
+    heating: 'A Gas Boiler',
+    warming: 'Thermoblock',
     userId: 1,
   },
   {
@@ -14,7 +17,10 @@ const data = [
     price: 237474,
     photoUrl: [],
     houseType: 'Cottage',
-    description: 'Hui',
+    description: 'Simple description',
+    waterSupply: 'Centralized',
+    heating: 'A Gas Boiler',
+    warming: 'Thermoblock',
     userId: 1,
   },
   {
@@ -22,7 +28,10 @@ const data = [
     price: 76000,
     photoUrl: [],
     houseType: 'Plot',
-    description: 'Hui',
+    description: 'Simple description',
+    waterSupply: 'Individual',
+    heating: 'Solid fuel Boiler',
+    warming: 'Basalt Wool',
     userId: 1,
   },
   {
@@ -117,8 +126,9 @@ const data = [
     description: 'Hui',
   },
 ]
+
 function dummydata() {
-  data.map((house) => House.create(house))
+  data.map((house) => House.create({ ...house, squares: 123 }))
 }
 
 module.exports = {

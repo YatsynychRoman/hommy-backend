@@ -4,12 +4,15 @@ const { House, Like } = require('../../database')
 
 module.exports = async (req, res) => {
   try {
-    const { offset, limit, city, houseType } = req.query
+    const { offset, limit, city, houseType, waterSupply, heating, warming } = req.query
 
     const where = {}
 
     if (city) where.location = { [Op.like]: `%${city}%` }
     if (houseType) where.houseType = { [Op.in]: houseType.split(',') }
+    if (waterSupply) where.waterSupply = waterSupply
+    if (heating) where.heating = heating
+    if (warming) where.warming = warming
 
     const query = {
       where,
@@ -31,6 +34,6 @@ module.exports = async (req, res) => {
     }
   } catch (e) {
     console.log(e)
-    res.status(400).send('Oops something went wrong!')
+    res.status(500).send('Oops something went wrong!')
   }
 }
